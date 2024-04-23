@@ -39,6 +39,7 @@ public class MyTextTemplatingModelGenerator : TemplatedModelGenerator
         IServiceProvider serviceProvider)
         : base(dependencies)
     {
+        Console.WriteLine("MyTextTemplatingModelGenerator..ctor");
         _reporter = reporter;
         _serviceProvider = serviceProvider;
     }
@@ -60,6 +61,8 @@ public class MyTextTemplatingModelGenerator : TemplatedModelGenerator
     /// </summary>
     public override bool HasTemplates(string projectDir)
     {
+        Console.WriteLine("MyTextTemplatingModelGenerator.HasTemplates");
+        //throw new Exception();
         var hasContextTemplate = File.Exists(Path.Combine(projectDir, TemplatesDirectory, DbContextTemplate));
         var hasEntityTypeTemplate = File.Exists(Path.Combine(projectDir, TemplatesDirectory, EntityTypeTemplate));
         var hasConfigurationTemplate = File.Exists(Path.Combine(projectDir, TemplatesDirectory, EntityTypeConfigurationTemplate));
@@ -80,6 +83,9 @@ public class MyTextTemplatingModelGenerator : TemplatedModelGenerator
     /// </summary>
     public override ScaffoldedModel GenerateModel(IModel model, ModelCodeGenerationOptions options)
     {
+        Console.WriteLine("MyTextTemplatingModelGenerator.GenerateModel");
+        Console.WriteLine("!!!!!");
+        //throw new Exception();
         if (options.ContextName == null)
         {
             throw new ArgumentException($"The property '{nameof(options.ContextName)}' of the argument '{nameof(options)}' cannot be null.");
@@ -88,7 +94,7 @@ public class MyTextTemplatingModelGenerator : TemplatedModelGenerator
         if (options.ConnectionString == null)
         {
             throw new ArgumentException($"The property '{nameof(options.ConnectionString)}' of the argument '{nameof(options)}' cannot be null.");
-        }
+        }   
 
         var host = new TextTemplatingEngineHost(_serviceProvider)
         {
